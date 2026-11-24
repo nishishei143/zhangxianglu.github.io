@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- 图片资源目录：images/ | hero.jpg=首屏背景(横图) intro.jpg=简介配图(竖图) spot1-6.jpg=景点配图依次为：金顶道观群、十里画屏、追梦谷、云海日出、南天门、玉皇顶 -->
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>老君山 · 中原第一仙山</title>
+<style>
+  :root {
+    --jade-900: #053b36;
+    --jade-800: #0b564d;
+    --jade-600: #0f8a7c;
+    --jade-500: #14b8a6;
+    --cyan-500: #06b6d4;
+    --mint-200: #a7f3d0;
+    --ink: #0d2b28;
+    --ink-soft: #3f5f5b;
+    --glass: rgba(255, 255, 255, 0.55);
+    --glass-strong: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --shadow: 0 18px 50px -18px rgba(5, 59, 54, 0.35);
+    --radius: 22px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    color: var(--ink);
+    line-height: 1.75;
+    background:
+      radial-gradient(1100px 700px at 12% -6%, #d8fbf3 0%, transparent 55%),
+      radial-gradient(900px 620px at 88% 6%, #d3f4fb 0%, transparent 58%),
+      radial-gradient(1000px 800px at 50% 100%, #e8fbf6 0%, transparent 60%),
+      linear-gradient(180deg, #f4fdfb 0%, #f7fdfe 45%, #f0fbf8 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .serif {
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* ============ 顶部导航 ============ */
+  .nav {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1180px, calc(100% - 40px));
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px) saturate(170%);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+    transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .nav.scrolled {
+    top: 10px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 14px 40px -20px rgba(5, 59, 54, 0.45);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--jade-900);
+  }
+
+  .brand svg { width: 30px; height: 30px; }
+
+  .brand-name {
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 7px 15px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--jade-800);
+    background: rgba(20, 184, 166, 0.12);
+  }
+
+  /* ============ Hero ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px 90px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #cfe9e3;
+    background-image: url("images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    animation: kenburns 26s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenburns {
+    from { transform: scale(1.02) translate3d(0, 0, 0); }
+    to   { transform: scale(1.13) translate3d(-1.5%, -1.5%, 0); }
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(240, 252, 249, 0.55) 0%, rgba(240, 252, 249, 0.02) 34%, rgba(4, 45, 41, 0.45) 100%),
+      radial-gradient(85% 65% at 50% 48%, transparent 44%, rgba(4, 45, 41, 0.26) 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: min(880px, 100%);
+    text-align: center;
+  }
+
+  .hero-card {
+    padding: clamp(30px, 5vw, 56px) clamp(24px, 5vw, 60px);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 30px 80px -30px rgba(4, 45, 41, 0.55);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    color: var(--jade-800);
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    margin-bottom: 26px;
+  }
+
+  .hero-eyebrow span { color: var(--jade-500); font-weight: 700; }
+
+  .hero h1 {
+    font-size: clamp(44px, 8vw, 96px);
+    line-height: 1.08;
+    letter-spacing: 0.16em;
+    color: #06322e;
+    text-shadow: 0 2px 30px rgba(255, 255, 255, 0.6);
+  }
+
+  .hero-sub {
+    margin-top: 18px;
+    font-size: clamp(14px, 2vw, 17px);
+    color: #0b3f3a;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-tags {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .hero-tags span {
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    color: var(--jade-800);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 34px;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .scroll-hint i {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), transparent);
+    animation: drop 2s ease-in-out infinite;
+  }
+
+  @keyframes drop {
+    0%, 100% { opacity: 0.2; transform: scaleY(0.5); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ============ 通用区块 ============ */
+  .section {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 90px 0;
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  .section-tag {
+    font-size: 12px;
+    letter-spacing: 0.42em;
+    color: var(--jade-500);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(26px, 4vw, 40px);
+    color: var(--jade-900);
+    letter-spacing: 0.1em;
+  }
+
+  .section-head p {
+    margin-top: 14px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============ 数据条 ============ */
+  .stats {
+    width: min(1100px, calc(100% - 48px));
+    margin: -60px auto 0;
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 26px;
+    border-radius: var(--radius);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(22px) saturate(170%);
+    -webkit-backdrop-filter: blur(22px) saturate(170%);
+    box-shadow: var(--shadow);
+  }
+
+  .stat {
+    text-align: center;
+    padding: 10px 6px;
+    border-right: 1px solid rgba(20, 184, 166, 0.18);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-size: clamp(24px, 3.4vw, 38px);
+    font-weight: 700;
+    color: var(--jade-800);
+    line-height: 1.1;
+  }
+
+  .stat-num em {
+    font-style: normal;
+    font-size: 0.45em;
+    margin-left: 4px;
+    color: var(--jade-600);
+  }
+
+  .stat-label {
+    margin-top: 8px;
+    font-size: 12.5px;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+
+  /* ============ 简介 ============ */
+  .intro {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .intro-text h2 {
+    font-size: clamp(26px, 3.6vw, 38px);
+    color: var(--jade-900);
+    margin-bottom: 22px;
+    letter-spacing: 0.08em;
+  }
+
+  .intro-text p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    margin-bottom: 16px;
+  }
+
+  .intro-text p strong {
+    color: var(--jade-800);
+    font-weight: 700;
+  }
+
+  .quote {
+    margin-top: 28px;
+    padding: 20px 24px;
+    border-left: 3px solid var(--jade-500);
+    border-radius: 0 16px 16px 0;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    color: var(--jade-800);
+    font-size: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .intro-visual {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    box-shadow: var(--shadow);
+    background: linear-gradient(160deg, #c9f4ea, #d9f7fb);
+  }
+
+  .intro-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .intro-visual:hover img { transform: scale(1.06); }
+
+  .intro-badge {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    padding: 10px 18px;
+    border-radius: 14px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--jade-900);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* ============ 景点卡片 ============ */
+  .spots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .spot {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 14px 40px -22px rgba(5, 59, 54, 0.4);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spot:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px -24px rgba(5, 59, 54, 0.5);
+  }
+
+  .spot-img {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(150deg, #c9f4ea, #d9f7fb);
+  }
+
+  .spot-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .spot:hover .spot-img img { transform: scale(1.08); }
+
+  .spot-body { padding: 22px 24px 26px; }
+
+  .spot-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--jade-600);
+    margin-bottom: 8px;
+  }
+
+  .spot-meta::before {
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: var(--jade-500);
+  }
+
+  .spot-body h3 {
+    font-size: 21px;
+    color: var(--jade-900);
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+
+  .spot-body p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  /* ============ 四季 ============ */
+  .seasons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .season {
+    padding: 30px 24px;
+    border-radius: var(--radius);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    box-shadow: 0 12px 34px -24px rgba(5, 59, 54, 0.4);
+    transition: transform 0.45s ease, background 0.45s ease;
+  }
+
+  .season:hover {
+    transform: translateY(-6px);
+    background: var(--glass-strong);
+  }
+
+  .season-dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 18px;
+    font-family: "Noto Serif SC", "Songti SC", serif;
+  }
+
+  .season:nth-child(1) .season-dot { background: linear-gradient(135deg, #34d399, #10b981); }
+  .season:nth-child(2) .season-dot { background: linear-gradient(135deg, #22d3ee, #0ea5e9); }
+  .season:nth-child(3) .season-dot { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+  .season:nth-child(4) .season-dot { background: linear-gradient(135deg, #94a3b8, #64748b); }
+
+  .season h3 {
+    font-size: 17px;
+    color: var(--jade-900);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .season p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  /* ============ 实用信息 ============ */
+  .info-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+  .info-card {
+    padding: 30px 32px;
+    border-radius: var(--radius);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px) saturate(165%);
+    -webkit-backdrop-filter: blur(18px) saturate(165%);
+    box-shadow: 0 14px 40px -26px rgba(5, 59, 54, 0.42);
+  }
+
+  .info-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: var(--jade-900);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  .info-card h3 svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  .info-list { list-style: none; }
+
+  .info-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    border-bottom: 1px dashed rgba(20, 184, 166, 0.22);
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+
+  .info-list li b {
+    color: var(--jade-800);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .info-list li span { text-align: right; }
+
+  /* ============ 页脚 ============ */
+  .footer {
+    margin-top: 60px;
+    padding: 46px 20px 40px;
+    text-align: center;
+    border-top: 1px solid rgba(20, 184, 166, 0.16);
+  }
+
+  .footer-title {
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-size: 20px;
+    letter-spacing: 0.3em;
+    color: var(--jade-800);
+    margin-bottom: 10px;
+  }
+
+  .footer p {
+    font-size: 12.5px;
+    color: #7a9693;
+    letter-spacing: 0.08em;
+  }
+
+  /* ============ 进场动画 ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 鼠标光晕 */
+  .glow {
+    position: fixed;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.14), transparent 68%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.6s ease;
+    opacity: 0;
+  }
+
+  /* ============ 响应式 ============ */
+  @media (max-width: 980px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .intro { grid-template-columns: 1fr; }
+    .intro-visual { aspect-ratio: 16 / 10; }
+    .spots { grid-template-columns: repeat(2, 1fr); }
+    .seasons { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .nav { padding: 10px 16px; top: 12px; }
+    .nav-links { display: none; }
+    .section { padding: 66px 0; }
+    .stats { margin-top: -46px; padding: 18px 12px; gap: 8px; }
+    .spots { grid-template-columns: 1fr; }
+    .seasons { grid-template-columns: 1fr; }
+    .info-wrap { grid-template-columns: 1fr; }
+    .hero h1 { letter-spacing: 0.1em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow" id="glow"></div>
+
+<!-- 导航 -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path d="M3 25L11 10L16 18L20 12L29 25H3Z" stroke="#0f8a7c" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="16" cy="7" r="2.6" stroke="#06b6d4" stroke-width="1.8"/>
+    </svg>
+    <span class="brand-name">老君山</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">山之名</a></li>
+    <li><a href="#spots">胜景</a></li>
+    <li><a href="#seasons">四时</a></li>
+    <li><a href="#travel">出行</a></li>
+  </ul>
+</nav>
+
+<!-- 首屏 -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-card">
+      <div class="hero-eyebrow">河南 · 洛阳 · 栾川 · <span>国家 5A 级景区</span></div>
+      <h1>老君山</h1>
+      <p class="hero-sub">八百里伏牛主峰 · 中原第一仙山</p>
+      <div class="hero-tags">
+        <span>海拔 2217 米</span>
+        <span>道教圣地</span>
+        <span>云海奇观</span>
+        <span>十里画屏</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>向下探索</span>
+    <i></i>
+  </div>
+</header>
+
+<!-- 数据条 -->
+<div class="stats reveal">
+  <div class="stat">
+    <div class="stat-num"><span class="count" data-target="2217">0</span><em>米</em></div>
+    <div class="stat-label">主峰海拔</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="count" data-target="98">0</span><em>%</em></div>
+    <div class="stat-label">森林覆盖率</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="count" data-target="2000">0</span><em>米+</em></div>
+    <div class="stat-label">金顶道观海拔</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="count" data-target="5">0</span><em>A</em></div>
+    <div class="stat-label">国家级景区</div>
+  </div>
+</div>
+
+<!-- 简介 -->
+<section class="section" id="about">
+  <div class="intro">
+    <div class="intro-text reveal">
+      <div class="section-tag">山之名</div>
+      <h2>老子归隐处，云深不知山</h2>
+      <p>老君山位于<strong>河南省洛阳市栾川县</strong>，是秦岭余脉八百里伏牛山脉的主峰，海拔 <strong>2217 米</strong>。原名景室山，因道家始祖老子（李耳）曾在此归隐修炼而得名，自北魏起山上便建有铁顶老君庙，香火延续一千五百余年。</p>
+      <p>这里的花岗岩峰林地貌历经亿万年风化剥蚀，形成了峰林、怪石、幽谷、飞瀑并存的奇绝景观。春日杜鹃漫山，夏季云海翻涌，秋来红叶染谷，冬至雾凇满枝，四时之景各不相同。</p>
+      <p>登临金顶，脚下云涛如海，远山浮沉若岛。日出时金光破云，庙宇铜瓦映出暖色；暮色里群山隐入青黛，只余檐角风铃轻响。</p>
+      <div class="quote">「山不在高，有仙则名。」—— 老君山之名，得于仙，成于云。</div>
+    </div>
+    <div class="intro-visual reveal">
+      <img onerror="this.style.opacity=0" src="images/intro.jpg"
+        alt="老君山道观与花岗岩峰林"
+        loading="lazy" />
+      <div class="intro-badge">伏牛之巅 · 云上仙山</div>
+    </div>
+  </div>
+</section>
+
+<!-- 胜景 -->
+<section class="section" id="spots">
+  <div class="section-head reveal">
+    <div class="section-tag">胜景</div>
+    <h2>六处不可错过</h2>
+    <p>从山门到金顶，一步一景。索道穿云而上，石阶隐入雾中，每一处转角都藏着不同的天地。</p>
+  </div>
+
+  <div class="spots">
+    <article class="spot reveal">
+      <div class="spot-img">
+        <img onerror="this.style.opacity=0" src="images/spot1.jpg" alt="金顶道观群" loading="lazy" />
+      </div>
+      <div class="spot-body">
+        <div class="spot-meta">海拔 2000 米以上</div>
+        <h3>金顶道观群</h3>
+        <p>老君山的灵魂所在。老君庙、玉皇顶、亮宝台、金殿沿山脊排开，铜瓦鎏金的屋顶在云海之上熠熠生辉，是国内海拔最高的道教建筑群之一。</p>
+      </div>
+    </article>
+
+    <article class="spot reveal">
+      <div class="spot-img">
+        <img onerror="this.style.opacity=0" src="images/spot2.jpg" alt="十里画屏" loading="lazy" />
+      </div>
+      <div class="spot-body">
+        <div class="spot-meta">花岗岩峰林</div>
+        <h3>十里画屏</h3>
+        <p>绵延十余里的花岗岩峰林，峰柱如笔、崖壁如屏，松石相映，移步换景。晴天看层峦叠翠，云雾起时则如水墨长卷徐徐展开。</p>
+      </div>
+    </article>
+
+    <article class="spot reveal">
+      <div class="spot-img">
+        <img onerror="this.style.opacity=0" src="images/spot3.jpg" alt="追梦谷" loading="lazy" />
+      </div>
+      <div class="spot-body">
+        <div class="spot-meta">长约 5 公里</div>
+        <h3>追梦谷</h3>
+        <p>山脚的一条幽深峡谷，溪水常年不涸，飞瀑深潭连缀成串。夏日走进谷中，凉意扑面，是避暑戏水的好去处。</p>
+      </div>
+    </article>
+
+    <article class="spot reveal">
+      <div class="spot-img">
+        <img onerror="this.style.opacity=0" src="images/spot4.jpg" alt="云海日出" loading="lazy" />
+      </div>
+      <div class="spot-body">
+        <div class="spot-meta">清晨最佳</div>
+        <h3>云海日出</h3>
+        <p>老君山最负盛名的奇观。雨雪初霁的清晨，云涛自谷底涌起，铺满千山万壑；红日跃出云面时，整片云海被染成金红。</p>
+      </div>
+    </article>
+
+    <article class="spot reveal">
+      <div class="spot-img">
+        <img onerror="this.style.opacity=0" src="images/spot5.jpg" alt="南天门" loading="lazy" />
+      </div>
+      <div class="spot-body">
+        <div class="spot-meta">登顶必经</div>
+        <h3>南天门</h3>
+        <p>通往金顶的最后一道关隘。石阶陡峭，两侧崖壁夹峙，云雾从门洞中穿过，颇有「天门中断」的磅礴气势。</p>
+      </div>
+    </article>
+
+    <article class="spot reveal">
+      <div class="spot-img">
+        <img onerror="this.style.opacity=0" src="images/spot6.jpg" alt="玉皇顶" loading="lazy" />
+      </div>
+      <div class="spot-body">
+        <div class="spot-meta">观景制高点</div>
+        <h3>玉皇顶</h3>
+        <p>金顶区域的制高点，视野最为开阔。立于顶上，可俯瞰整个金顶建筑群与四面云海，是拍摄全景与云瀑的理想位置。</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 四季 -->
+<section class="section" id="seasons">
+  <div class="section-head reveal">
+    <div class="section-tag">四时</div>
+    <h2>一山有四季</h2>
+    <p>高差与气候共同塑造了老君山多变的容颜，无论何时到访，都不会看到同一座山。</p>
+  </div>
+
+  <div class="seasons">
+    <div class="season reveal">
+      <div class="season-dot">春</div>
+      <h3>杜鹃染岭</h3>
+      <p>四至五月，山间杜鹃次第开放，粉白与嫩绿铺满坡谷，云雾也带着草木清香。</p>
+    </div>
+    <div class="season reveal">
+      <div class="season-dot">夏</div>
+      <h3>云海清凉</h3>
+      <p>山下闷热时，山上气温低十余度。雨后云海频繁，是避暑观云的最佳时节。</p>
+    </div>
+    <div class="season reveal">
+      <div class="season-dot">秋</div>
+      <h3>红叶满谷</h3>
+      <p>十月中下旬，黄栌与枫树染红山谷，晴日通透，远山层次分明，最宜登高。</p>
+    </div>
+    <div class="season reveal">
+      <div class="season-dot">冬</div>
+      <h3>雾凇琉璃</h3>
+      <p>雪后初晴，峰林披银，枝头雾凇晶莹，金顶在雪色中更显庄重清寂。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 实用信息 -->
+<section class="section" id="travel">
+  <div class="section-head reveal">
+    <div class="section-tag">出行</div>
+    <h2>实用信息</h2>
+    <p>关于门票、索道、交通与游览路线的一些参考，出行前请以景区当日公告为准。</p>
+  </div>
+
+  <div class="info-wrap">
+    <div class="info-card reveal">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0f8a7c" stroke-width="1.8"><path d="M3 9V7a1 1 0 011-1h16a1 1 0 011 1v2a3 3 0 000 6v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2a3 3 0 000-6z" stroke-linejoin="round"/><path d="M13 6v12" stroke-dasharray="2 3"/></svg>
+        门票与开放
+      </h3>
+      <ul class="info-list">
+        <li><b>景区级别</b><span>国家 5A 级旅游景区</span></li>
+        <li><b>开放时间</b><span>约 07:00 — 18:00（季节浮动）</span></li>
+        <li><b>门票</b><span>需购景区门票，另含观光车</span></li>
+        <li><b>建议时长</b><span>1 — 2 天</span></li>
+      </ul>
+    </div>
+
+    <div class="info-card reveal">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0f8a7c" stroke-width="1.8"><path d="M4 17l7-13h2l7 13" stroke-linejoin="round"/><path d="M7 13h10"/><path d="M2 20h20"/></svg>
+        索道与登顶
+      </h3>
+      <ul class="info-list">
+        <li><b>一级索道</b><span>中灵索道 / 云景索道，至中天门</span></li>
+        <li><b>二级索道</b><span>峰林索道，直达金顶附近</span></li>
+        <li><b>徒步</b><span>石阶较长，需较好体力</span></li>
+        <li><b>观日出</b><span>建议住山顶或凌晨上山</span></li>
+      </ul>
+    </div>
+
+    <div class="info-card reveal">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0f8a7c" stroke-width="1.8"><path d="M5 17h14l-2-9H7L5 17z" stroke-linejoin="round"/><circle cx="7.5" cy="19" r="1.6"/><circle cx="16.5" cy="19" r="1.6"/></svg>
+        交通方式
+      </h3>
+      <ul class="info-list">
+        <li><b>飞机</b><span>洛阳北郊机场，转乘至栾川</span></li>
+        <li><b>高铁</b><span>洛阳龙门站，转大巴约 2 — 3 小时</span></li>
+        <li><b>自驾</b><span>洛栾高速至栾川，按导航前往</span></li>
+        <li><b>县内</b><span>栾川县城有景区班车与出租</span></li>
+      </ul>
+    </div>
+
+    <div class="info-card reveal">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0f8a7c" stroke-width="1.8"><path d="M12 3l7 4v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V7l7-4z" stroke-linejoin="round"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/></svg>
+        游览贴士
+      </h3>
+      <ul class="info-list">
+        <li><b>衣物</b><span>山顶温差大，务必带外套</span></li>
+        <li><b>鞋具</b><span>防滑徒步鞋，石阶湿滑</span></li>
+        <li><b>天气</b><span>雨雪后云海概率更高</span></li>
+        <li><b>安全</b><span>注意护栏，勿越界拍照</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-title">老 君 山</div>
+  <p>河南 · 洛阳 · 栾川 &nbsp;|&nbsp; 八百里伏牛，云深有仙山</p>
+  <p style="margin-top:8px;opacity:.75">本页内容为风景介绍，票价、时间等信息请以景区实际公告为准</p>
+</footer>
+
+<script>
+  // 导航滚动态
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // 进场动画
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 70 + 'ms';
+    io.observe(el);
+  });
+
+  // 数字滚动
+  const counters = document.querySelectorAll('.count');
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = Number(el.dataset.target);
+      const duration = 1400;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased).toLocaleString('en-US');
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach((el) => countIO.observe(el));
+
+  // 鼠标光晕
+  const glow = document.getElementById('glow');
+  window.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+    glow.style.opacity = '1';
+  }, { passive: true });
+
+  window.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+  });
+</script>
+
+</body>
+</html>
